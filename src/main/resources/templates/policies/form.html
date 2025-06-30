@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}"></title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link your custom CSS for additional styles (if any) -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="bg-black flex flex-col items-center min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="w-full bg-gray-900 p-4 shadow-md mb-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-white">Claim Flow</a>
+            <!-- Add more nav links here if needed -->
+        </div>
+    </nav>
+
+    <div class="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-lg">
+        <h1 class="text-3xl font-bold text-center mb-6 text-white" th:text="${pageTitle}"></h1>
+
+        <form th:action="@{/policies/save}" th:object="${policy}" method="post" class="space-y-4">
+            <!-- Hidden field for ID (important for editing existing policies) -->
+            <input type="hidden" th:field="*{id}" />
+
+            <div>
+                <label for="policyNumber" class="block text-gray-300 text-sm font-bold mb-2">Policy Number:</label>
+                <input type="text" id="policyNumber" th:field="*{policyNumber}" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="policyType" class="block text-gray-300 text-sm font-bold mb-2">Policy Type:</label>
+                <input type="text" id="policyType" th:field="*{policyType}" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="coverageAmount" class="block text-gray-300 text-sm font-bold mb-2">Coverage Amount:</label>
+                <input type="number" id="coverageAmount" th:field="*{coverageAmount}" step="0.01" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="startDate" class="block text-gray-300 text-sm font-bold mb-2">Start Date:</label>
+                <input type="date" id="startDate" th:field="*{startDate}" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="endDate" class="block text-gray-300 text-sm font-bold mb-2">End Date:</label>
+                <input type="date" id="endDate" th:field="*{endDate}" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="customer" class="block text-gray-300 text-sm font-bold mb-2">Customer:</label>
+                <select id="customer" th:field="*{customer.id}" required
+                        class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">-- Select Customer --</option>
+                    <option th:each="cust : ${customers}"
+                            th:value="${cust.id}"
+                            th:text="${cust.firstName + ' ' + cust.lastName}"
+                            th:selected="${policy.customer != null and policy.customer.id == cust.id}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="flex items-center justify-between mt-6">
+                <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Save Policy
+                </button>
+                <a th:href="@{/policies}" class="inline-block align-baseline font-bold text-sm text-gray-400 hover:text-gray-200">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

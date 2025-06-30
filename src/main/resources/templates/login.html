@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link your custom CSS for additional styles (if any) -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="bg-black flex flex-col items-center min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="w-full bg-gray-900 p-4 shadow-md mb-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-white">Claim Flow</a>
+            <!-- You can add more nav links here later if needed -->
+        </div>
+    </nav>
+
+    <div class="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h1 class="text-3xl font-bold text-center mb-6 text-white">Login to ClaimFlow</h1>
+
+        <!-- Error message display -->
+        <div th:if="${param.error}" class="bg-red-800 border border-red-600 text-red-200 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Login Failed!</strong>
+            <span class="block sm:inline">Invalid username or password.</span>
+        </div>
+
+        <!-- Logout message display -->
+        <div th:if="${param.logout}" class="bg-green-800 border border-green-600 text-green-200 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Success!</strong>
+            <span class="block sm:inline">You have been successfully logged out.</span>
+        </div>
+
+        <form method="post" th:action="@{/perform_login}" class="space-y-4">
+            <div>
+                <label for="username" class="block text-gray-300 text-sm font-bold mb-2">Username:</label>
+                <input type="text" id="username" name="username" autofocus="autofocus"
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="password" class="block text-gray-300 text-sm font-bold mb-2">Password:</label>
+                <input type="password" id="password" name="password"
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
+                    Sign In
+                </button>
+            </div>
+        </form>
+
+        <p class="text-center text-gray-400 text-sm mt-4">
+            New user? <a th:href="@{/register}" class="text-blue-400 hover:text-blue-200">Register here</a>
+        </p>
+    </div>
+</body>
+</html>

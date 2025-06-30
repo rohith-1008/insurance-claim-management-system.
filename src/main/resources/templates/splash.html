@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claimflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animated-text {
+            animation: fadeInScale 2s ease-out forwards; /* 2 seconds for animation */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div class="text-center">
+        <h1 class="text-6xl font-extrabold tracking-tight text-white animated-text">
+            Claimflow
+        </h1>
+        <p class="mt-4 text-lg text-gray-400 opacity-0 animated-text" style="animation-delay: 1s; animation-fill-mode: forwards;">
+            Simplifying Insurance Management
+        </p>
+    </div>
+
+    <script>
+        // Redirect to the home page after 3 seconds (3000 milliseconds)
+        setTimeout(function() {
+            // Changed from window.location.href to window.location.replace for more robust navigation
+            window.location.replace('/home'); 
+        }, 3000); 
+    </script>
+</body>
+</html>

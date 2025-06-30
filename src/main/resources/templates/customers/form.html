@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}"></title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link your custom CSS for additional styles (if any) -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="bg-black flex flex-col items-center min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="w-full bg-gray-900 p-4 shadow-md mb-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-white">Claim Flow</a>
+            <!-- Add more nav links here if needed -->
+        </div>
+    </nav>
+
+    <div class="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-lg">
+        <h1 class="text-3xl font-bold text-center mb-6 text-white" th:text="${pageTitle}"></h1>
+
+        <form th:action="@{/customers/save}" th:object="${customer}" method="post" class="space-y-4">
+            <!-- Hidden field for ID (important for editing existing customers) -->
+            <input type="hidden" th:field="*{id}" />
+
+            <div>
+                <label for="firstName" class="block text-gray-300 text-sm font-bold mb-2">First Name:</label>
+                <input type="text" id="firstName" th:field="*{firstName}" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="lastName" class="block text-gray-300 text-sm font-bold mb-2">Last Name:</label>
+                <input type="text" id="lastName" th:field="*{lastName}" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Email:</label>
+                <input type="email" id="email" th:field="*{email}" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="phone" class="block text-gray-300 text-sm font-bold mb-2">Phone:</label>
+                <input type="tel" id="phone" th:field="*{phone}" required
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+            <div>
+                <label for="address" class="block text-gray-300 text-sm font-bold mb-2">Address:</label>
+                <textarea id="address" th:field="*{address}" required rows="3"
+                          class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+            </div>
+            <div>
+                <label for="dateOfBirth" class="block text-gray-300 text-sm font-bold mb-2">Date of Birth (Optional):</label>
+                <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}"
+                       class="shadow appearance-none border border-gray-700 bg-gray-800 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+            </div>
+
+            <div class="flex items-center justify-between mt-6">
+                <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Save Customer
+                </button>
+                <a th:href="@{/customers}" class="inline-block align-baseline font-bold text-sm text-gray-400 hover:text-gray-200">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
